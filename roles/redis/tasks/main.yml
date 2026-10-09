@@ -6,3 +6,12 @@
     state: present
     update_cache: true
   when: ansible_facts['os_family'] == "Debian"
+
+# Создание каталога для данных Redis.
+- name: Create Redis data directory
+  ansible.builtin.file:
+    path: "{{ redis_dir }}"
+    state: directory
+    owner: redis
+    group: redis
+    mode: '0750'
