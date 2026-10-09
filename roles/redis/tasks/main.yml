@@ -1,0 +1,8 @@
+---
+# Установка Redis только на системах семейства Debian.
+- name: Install Redis server
+  ansible.builtin.apt:
+    name: redis-server
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == "Debian"
