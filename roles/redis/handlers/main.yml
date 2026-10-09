@@ -1,0 +1,6 @@
+---
+# Перезапуск Redis при изменении конфигурации.
+- name: Restart Redis
+  ansible.builtin.systemd_service:
+    name: redis-server
+    state: restarted
