@@ -26,3 +26,10 @@
     mode: '0640'
   notify:
     - Restart Redis
+
+# Запуск Redis и включение в автозагрузку.
+- name: Enable and start Redis service
+  ansible.builtin.systemd_service:
+    name: redis-server
+    state: started
+    enabled: true
