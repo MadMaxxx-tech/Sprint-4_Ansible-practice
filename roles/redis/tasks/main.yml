@@ -15,3 +15,14 @@
     owner: redis
     group: redis
     mode: '0750'
+
+# Генерация конфигурации Redis из Jinja2-шаблона.
+- name: Deploy Redis configuration
+  ansible.builtin.template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: redis
+    group: redis
+    mode: '0640'
+  notify:
+    - Restart Redis
