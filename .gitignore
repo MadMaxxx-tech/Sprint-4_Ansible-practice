@@ -1,0 +1,5 @@
+# Ansible retry-файлы (временные файлы, не нужны в Git)
+*.retry
+
+# Пароль Ansible Vault (сredentials, не должны быть в Git)
+.vault_pass
