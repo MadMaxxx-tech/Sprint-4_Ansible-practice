@@ -1,0 +1,7 @@
+---
+# Playbook для установки и настройки Redis.
+- name: Install and configure Redis
+  hosts: redis
+  become: true
+  roles:
+    - redis
