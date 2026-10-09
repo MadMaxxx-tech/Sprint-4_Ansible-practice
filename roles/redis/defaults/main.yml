@@ -1,0 +1,7 @@
+---
+# Параметры Redis по умолчанию; окружения могут переопределить их через inventory.
+redis_port: 6379
+redis_dir: /var/lib/redis
+redis_databases: 16
+redis_password: ""
+redis_appendonly: "yes"
