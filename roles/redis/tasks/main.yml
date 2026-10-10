@@ -16,6 +16,18 @@
     group: redis
     mode: '0750'
 
+# Разрешение сервису Redis записи в каталог данных.
+- name: Deploy Redis systemd write access override
+  ansible.builtin.template:
+    src: redis-dir.conf.j2
+    dest: /etc/systemd/system/redis-server.service.d/redis-dir.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload systemd
+    - Restart Redis
+
 # Генерация конфигурации Redis из Jinja2-шаблона.
 - name: Deploy Redis configuration
   ansible.builtin.template:
