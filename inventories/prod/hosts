@@ -1,0 +1,3 @@
+# Inventory окружения prod.
+[redis]
+second_server ansible_host=185.236.25.145 ansible_user=ansibler
