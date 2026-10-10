@@ -1,0 +1,6 @@
+---
+# Параметры Redis для окружения dev.
+redis_port: 6380
+redis_dir: /mnt/redis
+redis_databases: 4
+redis_appendonly: "no"
