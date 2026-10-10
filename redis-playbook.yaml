@@ -3,5 +3,7 @@
 - name: Install and configure Redis
   hosts: redis
   become: true
+  vars_files:
+    - "{{ inventory_dir }}/group_vars/vault.yml"
   roles:
     - redis
