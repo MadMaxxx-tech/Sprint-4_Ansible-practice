@@ -16,6 +16,15 @@
     group: redis
     mode: '0750'
 
+# Создание каталога для systemd drop-in конфигурации Redis.
+- name: Create Redis systemd override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/redis-server.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 # Разрешение сервису Redis записи в каталог данных.
 - name: Deploy Redis systemd write access override
   ansible.builtin.template:
