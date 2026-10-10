@@ -1,0 +1,11 @@
+---
+# Перечитывание конфигурации systemd после изменения drop-in.
+- name: Reload systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+# Перезапуск Redis при изменении конфигурации или drop-in.
+- name: Restart Redis
+  ansible.builtin.systemd_service:
+    name: redis-server
+    state: restarted

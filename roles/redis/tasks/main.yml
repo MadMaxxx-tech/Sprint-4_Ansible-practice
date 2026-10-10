@@ -1,0 +1,56 @@
+---
+# Установка Redis только на системах семейства Debian.
+- name: Install Redis server
+  ansible.builtin.apt:
+    name: redis-server
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == "Debian"
+
+# Создание каталога для данных Redis.
+- name: Create Redis data directory
+  ansible.builtin.file:
+    path: "{{ redis_dir }}"
+    state: directory
+    owner: redis
+    group: redis
+    mode: '0750'
+
+# Создание каталога для systemd drop-in конфигурации Redis.
+- name: Create Redis systemd override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/redis-server.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+# Разрешение сервису Redis записи в каталог данных.
+- name: Deploy Redis systemd write access override
+  ansible.builtin.template:
+    src: redis-dir.conf.j2
+    dest: /etc/systemd/system/redis-server.service.d/redis-dir.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload systemd
+    - Restart Redis
+
+# Генерация конфигурации Redis из Jinja2-шаблона.
+- name: Deploy Redis configuration
+  ansible.builtin.template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: redis
+    group: redis
+    mode: '0640'
+  notify:
+    - Restart Redis
+
+# Запуск Redis и включение в автозагрузку.
+- name: Enable and start Redis service
+  ansible.builtin.systemd_service:
+    name: redis-server
+    state: started
+    enabled: true
